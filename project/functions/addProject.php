@@ -12,12 +12,12 @@
 			$price = $_POST["contractPrice"];
 			$days = $_POST["days"];
 			
-			$insert = $db->prepare("INSERT INTO projects (pDescription, pLocation, pContractPrice, pWorkingDays, pStatus) VALUES (?, ?, ?, ?, ?)");
-			$insert->execute(array($projName, $location, $price, $days, 1));
+			$insert = $db->prepare("INSERT INTO projects (appId, pDescription, pLocation, pContractPrice, pWorkingDays, pStatus) VALUES (?, ?, ?, ?, ?, ?)");
+			$insert->execute(array($customer, $projName, $location, $price, $days, 1));
 			
 			$lastId = $db->lastInsertId();
-			$insert2 = $db->prepare("INSERT INTO applicants (appId, appName) VALUES (?, ?)");
-			$insert2->execute(array($lastId, $customer));
+			// $insert2 = $db->prepare("INSERT INTO applicants (appId, appName) VALUES (?, ?)");
+			// $insert2->execute(array($lastId, $customer));
 			
 			echo 1;
 		}

@@ -52,7 +52,8 @@ $extension = new includes();
 							$("#projectModal").jqxWindow("open");
 							$("#projectModal input")[0].value = data.projName;
 							$("#projectModal input")[1].value = data.location;
-							$("#projectModal input")[2].value = data.customer;
+							// $("#projectModal input")[2].value = data.customer;
+							$("#customer").jqxDropDownList("destroy");
 							$("#projectModal input")[3].value = data.price;
 							$("#projectModal input")[4].value = data.days;
 						}
@@ -116,11 +117,8 @@ $extension = new includes();
 				
 				$("#addProject").on("click", function(events){
 					p = null;
-					$("#projName").val("");
-					$("#location").val("");
-					$("#customer").val("");
-					$("#contractPrice").val("");
-					$("#days").val("");
+					$("#projectModal input").val("");
+					$("#customer").jqxDropDownList({ autoDropDownHeight: true, source: dataAdapter, displayMember: "customer", valueMember: "customerId", selectedIndex: 1, width: '200', height: '25'});
 					$("#projectModal").jqxWindow("open");
 					
 				});
@@ -130,10 +128,12 @@ $extension = new includes();
 				});
 				
 				$("#confirm2").click(function(){
+					var row = $("#customer").jqxDropDownList("getSelectedItem");
+					// console.log(row.value);
 					var data = {
 						projName: $("#projName").val(),
 						location: $("#location").val(),
-						customer: $("#customer").val(),
+						customer: row.value,
 						contractPrice: $("#contractPrice").val(),
 						days: $("#days").val()
 					}
@@ -146,7 +146,6 @@ $extension = new includes();
 							if(result == 1){
 								$("#confirm").jqxWindow("close");
 								$("#projectModal").jqxWindow("close");
-								//refresh
 								projects.url = "queries/projectList.php";
 								var projAdapter = new $.jqx.dataAdapter(projects);
 								$('#projectList').jqxGrid({source:projAdapter});

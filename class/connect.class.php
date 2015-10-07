@@ -5,7 +5,7 @@
      
         private $host = "localhost";
         private $username = "root";
-        private $password = "sierra";
+        private $password = "adminy";
         private $db_name = "humano";
         public $conn;
 		
